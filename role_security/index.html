@@ -13,7 +13,7 @@
       
         <link rel="canonical" href="https://supabase.github.io/supautils/role_security/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
     
     
@@ -78,8 +78,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="supautils" class="md-header__button md-logo" aria-label="supautils" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <img src="../assets/favicon.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -171,8 +170,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="supautils" class="md-nav__button md-logo" aria-label="supautils" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <img src="../assets/favicon.ico" alt="logo">
 
     </a>
     supautils
@@ -418,9 +416,9 @@ However, to create, alter, drop, or change membership of a superuser role, super
 CREATEROLE is insufficient for that.</p>
 </blockquote>
 <p>The above problem can be solved by configuring this extension to protect the <code>connector</code> role:</p>
-<div class="codehilite"><pre><span></span><code>supautils.reserved_roles = &quot;connector&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>supautils.reserved_roles = &quot;connector&quot;
 </code></pre></div>
-
+</td></tr></table>
 <p>This extension also allows restricting memberships grants for a set of roles. Certain default postgres roles are dangerous
 to expose to every database user. From <a href="https://www.postgresql.org/docs/11/default-roles.html">pg default roles</a>:</p>
 <blockquote>
@@ -430,18 +428,19 @@ As these roles are able to access any file on the server file system, they bypas
 and <strong>they could be used to gain superuser-level access</strong>, therefore great care should be taken when granting these roles to users.</p>
 </blockquote>
 <p>For example, you can restrict doing <code>GRANT pg_read_server_files TO my_role</code> with:</p>
-<div class="codehilite"><pre><span></span><code>supautils.reserved_memberships = &quot;pg_read_server_files&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>supautils.reserved_memberships = &quot;pg_read_server_files&quot;
 </code></pre></div>
-
+</td></tr></table>
 <h2 id="configuration">Configuration</h2>
 <p>Settings available in <code>postgresql.conf</code>:</p>
 <h3 id="protect-roles">Protect Roles</h3>
-<div class="codehilite"><pre><span></span><code>supautils.reserved_roles = &quot;supabase_admin,supabase_auth_admin,supabase_storage_admin&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>supautils.reserved_roles = &quot;supabase_admin,supabase_auth_admin,supabase_storage_admin&quot;
 </code></pre></div>
-
+</td></tr></table>
 <h3 id="protect-memberships">Protect Memberships</h3>
-<div class="codehilite"><pre><span></span><code>supautils.reserved_memberships = &quot;pg_read_server_files, pg_write_server_files, pg_execute_server_program&quot;
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>supautils.reserved_memberships = &quot;pg_read_server_files, pg_write_server_files, pg_execute_server_program&quot;
 </code></pre></div>
+</td></tr></table>
                 
               
               
