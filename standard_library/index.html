@@ -303,6 +303,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#inspect" class="md-nav__link">
+    Inspect
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table_row_count_estimate" class="md-nav__link">
+    table_row_count_estimate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_row_count_estimate" class="md-nav__link">
+    query_row_count_estimate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -417,6 +444,33 @@
           <li class="md-nav__item">
   <a href="#unique" class="md-nav__link">
     unique
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect" class="md-nav__link">
+    Inspect
+  </a>
+  
+    <nav class="md-nav" aria-label="Inspect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table_row_count_estimate" class="md-nav__link">
+    table_row_count_estimate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_row_count_estimate" class="md-nav__link">
+    query_row_count_estimate
   </a>
   
 </li>
@@ -598,6 +652,55 @@
  <span class="k">unique</span> 
 <span class="c1">--------</span>
 
+<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="inspect">Inspect</h3>
+<h4 id="table_row_count_estimate">table_row_count_estimate</h4>
+<p>Return the approximate number of rows in a table.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">begin</span><span class="p">;</span>
+
+    <span class="k">select</span> <span class="o">*</span>
+    <span class="k">into</span> <span class="k">public</span><span class="p">.</span><span class="n">account</span>
+    <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="k">analyze</span> <span class="k">public</span><span class="p">.</span><span class="n">account</span><span class="p">;</span>
+    <span class="k">select</span> <span class="n">supa</span><span class="p">.</span><span class="n">table_row_count_estimate</span><span class="p">(</span><span class="s1">&#39;public.account&#39;</span><span class="p">::</span><span class="n">regclass</span><span class="p">);</span>
+ <span class="n">table_row_count_estimate</span> 
+<span class="c1">--------------------------</span>
+                      <span class="mi">100</span>
+<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
+
+<span class="k">rollback</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+<h4 id="query_row_count_estimate">query_row_count_estimate</h4>
+<p>Return the approximate number of rows to be selected in a query.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">supa</span><span class="p">.</span><span class="n">query_row_count_estimate</span><span class="p">(</span><span class="err">$$</span>
+    <span class="k">select</span> <span class="o">*</span>
+    <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="err">$$</span><span class="p">::</span><span class="nb">text</span><span class="p">);</span>
+ <span class="n">query_row_count_estimate</span> 
+<span class="c1">--------------------------</span>
+                      <span class="mi">100</span>
 <span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>

@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://supabase.github.io/supautils/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://supabase.github.io/supautils/contributing/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://supabase.github.io/supautils/experimental/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://supabase.github.io/supautils/installation/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://supabase.github.io/supautils/role_security/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://supabase.github.io/supautils/standard_library/</loc>
-         <lastmod>2021-07-01</lastmod>
+         <lastmod>2021-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
