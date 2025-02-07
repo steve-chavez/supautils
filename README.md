@@ -4,7 +4,7 @@
 
 Supautils is an extension that secures a PostgreSQL cluster on a cloud environment.
 
-It doesn't require creating database objects. It's a shared library that modifies PostgreSQL behavior through "hooks", not through tables or functions.
+It's completely controlled through settings, it doesn't require database tables or functions.
 
 It's tested to work on PostgreSQL 13, 14, 15, 16 and 17.
 
@@ -16,6 +16,12 @@ Clone this repo and run
 make && make install
 ```
 
+To make supautils available to the whole cluster, you can add the following to `postgresql.conf` (use `SHOW config_file` for finding the location).
+
+```
+shared_preload_libraries = 'supautils'
+```
+
 To make it available on some PostgreSQL roles
 
 ```
@@ -23,15 +29,16 @@ ALTER ROLE role1 SET session_preload_libraries TO 'supautils';
 ALTER ROLE role2 SET session_preload_libraries TO 'supautils';
 ```
 
-Or to make it available to the whole cluster
+## Features
 
-```
-# add the following on postgresql.conf
-# use SHOW config_file; for finding the location
-shared_preload_libraries = 'supautils'
-```
+- [Reserved Roles](#reserved-roles)
+- [Privileged extensions](#privileged-extensions)
+- [Constrained extensions](#constrained-extensions)
+- [Extensions Parameter Overrides](#extensions-parameter-overrides)
+- [Table Ownership Bypass](#table-ownership-bypass)
+- [Table Ownership Bypass](#table-ownership-bypass)
 
-## Role Security
+### Reserved Roles
 
 This functionality prevents non-superusers from modifying/granting a set of roles.
 
@@ -64,7 +71,7 @@ For example, you can restrict doing `GRANT pg_read_server_files TO my_role` with
 supautils.reserved_memberships = 'pg_read_server_files'
 ```
 
-### Configuration
+#### Configuration
 
 Settings available:
 
@@ -73,7 +80,7 @@ supautils.reserved_roles = 'supabase_admin,supabase_auth_admin,supabase_storage_
 supautils.reserved_memberships = 'pg_read_server_files, pg_write_server_files, pg_execute_server_program'
 ```
 
-## Privileged Extensions
+### Privileged Extensions
 
 This functionality is adapted from [pgextwlist](https://github.com/dimitri/pgextwlist).
 
@@ -111,7 +118,7 @@ grant all on type hstore to non_superuser_role;
 
 This is useful for things like creating a dedicated role per extension and granting privileges as needed to that role.
 
-### Configuration
+#### Configuration
 
 Settings available:
 
@@ -121,7 +128,7 @@ supautils.privileged_extensions_custom_scripts_path = '/opt/postgresql/privilege
 supautils.privileged_extensions_superuser = 'postgres'
 ```
 
-## Constrained Extensions
+### Constrained Extensions
 
 You can constrain the resources needed for an extension to be installed. This is done through:
 
@@ -150,7 +157,7 @@ DETAIL:  required CPUs: 16
 HINT:  upgrade to an instance with higher resources
 ```
 
-## Extensions Parameter Overrides
+### Extensions Parameter Overrides
 
 You can override `CREATE EXTENSION` parameters like so:
 
@@ -173,7 +180,9 @@ postgres=> \dx pg_cron
 (1 row)
 ```
 
-## Managing Policies Without Table Ownership
+### Table Ownership Bypass
+
+#### Manage Policies
 
 In Postgres, only table owners can create RLS policies for a table. This can be
 limiting if you need to allow certain roles to manage policies without allowing
@@ -188,10 +197,9 @@ supautils.policy_grants = '{ "my_role": ["public.not_my_table", "public.also_not
 This allows `my_role` to manage policies for `public.not_my_table` and
 `public.also_not_my_table` without being an owner of these tables.
 
-## Dropping Triggers Without Table Ownership
+#### Drop Triggers
 
-In addition to managing policies, you can also allow certain roles to drop
-triggers on a table without being the table owner:
+You can also allow certain roles to drop triggers on a table without being the table owner:
 
 ```
 supautils.drop_trigger_grants = '{ "my_role": ["public.not_my_table", "public.also_not_my_table"] }'
