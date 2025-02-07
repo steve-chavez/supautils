@@ -36,7 +36,7 @@ ALTER ROLE role2 SET session_preload_libraries TO 'supautils';
 - [Constrained extensions](#constrained-extensions)
 - [Extensions Parameter Overrides](#extensions-parameter-overrides)
 - [Table Ownership Bypass](#table-ownership-bypass)
-- [Table Ownership Bypass](#table-ownership-bypass)
+- [Non-Superuser Event Triggers](#non-superuser-event-triggers)
 
 ### Reserved Roles
 
@@ -204,6 +204,11 @@ You can also allow certain roles to drop triggers on a table without being the t
 ```
 supautils.drop_trigger_grants = '{ "my_role": ["public.not_my_table", "public.also_not_my_table"] }'
 ```
+
+### Non-Superuser Event Triggers
+
+In Postgres, only SUPERUSERs are allowed to create event triggers. `supautils` allows regular users to create event triggers, while adding protection for privilege escalation
+and guarding event triggers created by superusers.
 
 ## Development
 
